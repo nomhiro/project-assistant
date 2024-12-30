@@ -46,7 +46,7 @@ export const getMinutesJson = async (input: string): Promise<Minutes> => {
 次の形式で結果を出力してください：
 
 - 各セクションを分割し整理。
-- Markdown形式で書かれた内容を`minutes_section`に書く。
+- Markdown形式で書かれた内容を"minutes_section"に書く。
 - JSON形式のリストとして、セクションごとに配列の要素を作成。
 
 # 出力例 
