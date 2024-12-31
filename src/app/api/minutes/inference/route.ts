@@ -12,6 +12,7 @@ import { minutes_chunk } from '@/types/types';
 import { getMinutesChunkByVecFilteredProject, getMinutesChunkByVecFilteredMeeting } from '@/util/cosmos/minutes_chunk';
 import { getMinutesById } from '@/util/cosmos/minutes';
 import { getChatCompletion } from '@/util/openai/openai';
+import { ChatMessage } from '@/types/types';
 
 export const POST = async (
   req: NextRequest,
