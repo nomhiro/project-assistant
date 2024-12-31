@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
-export default function Register({ selectedProject, selectedMeeting }) {
+export default function Register({
+  selectedProject,
+  selectedMeeting,
+}: {
+  selectedProject: string;
+  selectedMeeting: string;
+}) {
   const [uploadType, setUploadType] = useState<'file' | 'transcript' | 'minutes'>('transcript');
   const [transcript, setTranscript] = useState<string>('');
   const [minutes, setMinutes] = useState<string>('');
