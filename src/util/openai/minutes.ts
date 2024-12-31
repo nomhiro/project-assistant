@@ -1,6 +1,4 @@
-import { AzureOpenAI } from "openai";
-import { DefaultAzureCredential, getBearerTokenProvider } from "@azure/identity";
-import { Minutes, MinutesSection } from "@/models/minutes";
+import { Minutes } from "@/models/minutes";
 
 /**
  * Chat Completionで推論し議事録をJsonStructuredモードで生成する

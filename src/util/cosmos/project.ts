@@ -1,7 +1,5 @@
 import {
-  CosmosClient,
-  Database,
-  Container,
+  CosmosClient
 } from "@azure/cosmos";
 import { Project } from "../../types/types";
 
@@ -20,7 +18,7 @@ export const getProjects = async (): Promise<Project[]> => {
       };
       const { resources } = await containerInstance.items.query(querySpec).fetchAll();
       
-      const projects: Project[] = resources.map((resource: any) => {
+      const projects: Project[] = resources.map((resource: { id: string; name: string; description: string; order: number; }) => {
         return {
           id: resource.id,
           name: resource.name,

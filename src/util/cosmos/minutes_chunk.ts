@@ -1,18 +1,22 @@
 import {
-  CosmosClient,
-  Database,
-  Container,
+  CosmosClient
 } from "@azure/cosmos";
 import { minutes_chunk } from '@/types/types';
 
 // minutes_chunkアイテムを登録する
 export const upsertMinutesChunk = async (minutesChunk: minutes_chunk): Promise<void> => {
   return new Promise(async (resolve, reject) => {
-    const cosmosClient = new CosmosClient(process.env.COSMOS_CONNECTION_STRING!);
-    const database = cosmosClient.database('meetings');
-    const container = database.container('minutes_chunk');
-    await container.items.upsert(minutesChunk);
-    resolve();
+    console.log(` 🚀CosmosDB登録 minutes_chunk`);
+    try {
+      const cosmosClient = new CosmosClient(process.env.COSMOS_CONNECTION_STRING!);
+      const database = cosmosClient.database('meetings');
+      const container = database.container('minutes_chunk');
+      await container.items.upsert(minutesChunk);
+      resolve();
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
   });
 }
 

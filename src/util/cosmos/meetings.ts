@@ -21,7 +21,7 @@ export const getMeetingsByProjectId = async (projectId: string): Promise<Meeting
       };
       const { resources } = await containerInstance.items.query(querySpec).fetchAll();
       
-      const meetings: Meeting[] = resources.map((resource: any) => {
+      const meetings: Meeting[] = resources.map((resource: { id: string; project_id: string; name: string; description: string; order: number; }) => {
         return {
           id: resource.id,
           project_id: resource.project_id,
