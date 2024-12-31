@@ -7,11 +7,12 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Chat from "./components/chat";
 import Register from "./components/register";
 import { useProject } from "@/context/ProjectContext";
+import { meeting } from "@/types/types";
 
 export default function AssistantPage() {
   const { selectedProject } = useProject();
   const [selectedMeeting, setSelectedMeeting] = useState<string>('');
-  const [meetings, setMeetings] = useState([]);
+  const [meetings, setMeetings] = useState<meeting[]>([]);
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -51,12 +52,12 @@ export default function AssistantPage() {
 
         <TabPanel>
           <div className="w-full p-4">
-            <Register selectedProject={selectedProject} selectedMeeting={selectedMeeting} />
+            <Register selectedProject={selectedProject || ''} selectedMeeting={selectedMeeting || ''} />
           </div>
         </TabPanel>
         <TabPanel>
           <div className="w-full p-4">
-            <Chat selectedProject={selectedProject} selectedMeeting={selectedMeeting} />
+            <Chat selectedProject={selectedProject || ''} selectedMeeting={selectedMeeting || ''} />
           </div>
         </TabPanel>
       </Tabs>

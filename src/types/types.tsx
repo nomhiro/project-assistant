@@ -3,6 +3,11 @@ export type project = {
   name: string;
   description: string;
   order: number;
+  _rid?: string;
+  _self?: string;
+  _etag?: string;
+  _attachments?: string;
+  _ts?: number;
 };
 
 export type meeting = {
@@ -11,6 +16,11 @@ export type meeting = {
   name: string;
   description: string;
   order: number;
+  _rid?: string;
+  _self?: string;
+  _etag?: string;
+  _attachments?: string;
+  _ts?: number;
 };
 
 export type minutes = {
@@ -21,6 +31,11 @@ export type minutes = {
   summary: string;
   vector: number[];
   minutes_original: string;
+  _rid?: string;
+  _self?: string;
+  _etag?: string;
+  _attachments?: string;
+  _ts?: number;
 };
 
 export type minutes_chunk = {
@@ -31,6 +46,11 @@ export type minutes_chunk = {
   date: string;
   minutes_chunk: string;
   vector: number[];
+  _rid?: string;
+  _self?: string;
+  _etag?: string;
+  _attachments?: string;
+  _ts?: number;
 };
 
 // export interface ChatMessage {

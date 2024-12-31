@@ -1,10 +1,10 @@
 import {
   CosmosClient,
 } from "@azure/cosmos";
-import { Meeting } from "../../types/types";
+import { meeting } from "../../types/types";
 
 // ミーティングを全取得
-export const getMeetingsByProjectId = async (projectId: string): Promise<Meeting[]> => {
+export const getMeetingsByProjectId = async (projectId: string): Promise<meeting[]> => {
   return new Promise(async (resolve, reject) => {
     try {
       const cosmosClient = new CosmosClient(process.env.COSMOS_CONNECTION_STRING!);
@@ -21,7 +21,7 @@ export const getMeetingsByProjectId = async (projectId: string): Promise<Meeting
       };
       const { resources } = await containerInstance.items.query(querySpec).fetchAll();
       
-      const meetings: Meeting[] = resources.map((resource: { id: string; project_id: string; name: string; description: string; order: number; }) => {
+      const meetings: meeting[] = resources.map((resource: { id: string; project_id: string; name: string; description: string; order: number; }) => {
         return {
           id: resource.id,
           project_id: resource.project_id,

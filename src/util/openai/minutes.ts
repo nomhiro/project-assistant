@@ -16,7 +16,7 @@ export const getMinutesJson = async (input: string): Promise<Minutes> => {
     try {
       const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
       const apiKey = process.env.AZURE_OPENAI_API_KEY!;
-      const deployment = process.env.AZURE_OPENAI_DEPLOYMENT_NAME!;
+      const deployment = process.env.AZURE_OPENAI_CHAT_DEPLOYMENT_NAME!;
       const apiVersion = "2024-10-21";
 
       const systemMessage = `整理された会議の議事録を作成し、会議出席者でない人でも理解しやすい形にします。会議の各議題や内容に基づいてセクションを分割し、各セクションをMarkdown形式で記述してください。その後、各セクションをJSONオブジェクトとしてまとめます。

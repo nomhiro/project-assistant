@@ -42,11 +42,30 @@ export const getChatCompletion = async (messages: ChatMessage[]): Promise<string
       const apiVersion = "2024-10-21";
       
       const client = new AzureOpenAI({ endpoint, apiKey, deployment, apiVersion });
-      const completion = await client.chat.completions.create({ messages: messages, model: deployment });
+      
+      // const chatMessages: { role: string, content: string }[] = messages.map((message) => {
+      //   return { role: message.role, content: message.content };
+      // });
+      // const completion = await client.chat.completions.create({ 
+      //   messages: chatMessages, 
+      //   model: deployment
+      // });
+      const completion = await client.chat.completions.create({
+        messages: [
+          { role : "user", content: messages[0].content },
+        ],
+        model: deployment,
+        stream: false
+      });
 
       console.log("   completion:", completion.choices[0].message);
 
-      resolve(completion.choices[0].message);
+      const inferenceContent = completion.choices[0].message.content;
+      if (inferenceContent !== null) {
+        resolve(inferenceContent);
+      } else {
+        reject(new Error("Message content is null"));
+      }
     } catch (error) {
       console.error(error);
       reject(error);
