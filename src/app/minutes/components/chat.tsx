@@ -4,7 +4,13 @@ import { useState } from "react";
 import Message from "./message";
 import { ChatMessage } from "@/types/types";
 
-export default function Chat({ selectedProject, selectedMeeting }) {
+export default function Chat({
+  selectedProject,
+  selectedMeeting,
+}: {
+  selectedProject: string;
+  selectedMeeting: string;
+}) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [mode, setMode] = useState("project"); // デフォルトはProject全体
