@@ -9,8 +9,6 @@ const Message: React.FC<ChatMessage> = ( chatMessage: ChatMessage ) => {
     return null;
   }
 
-  const isUser = chatMessage.role === "user";
-
   return (
     <div
       className={`my-1 p-2 border border-gray-300 rounded-lg ${

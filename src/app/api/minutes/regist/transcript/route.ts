@@ -10,7 +10,7 @@ import { NextResponse } from 'next/dist/server/web/spec-extension/response';
 import { getEmbedding } from '@/util/openai/openai';
 import { getMinutesJson } from '@/util/openai/minutes';
 import { minutes, minutes_chunk } from '@/types/types';
-import { Minutes, MinutesSection } from '@/models/minutes';
+import { Minutes } from '@/models/minutes';
 import { upsertMinutes } from '@/util/cosmos/minutes';
 import { upsertMinutesChunk } from '@/util/cosmos/minutes_chunk';
 import { v4 as uuidv4 } from 'uuid';

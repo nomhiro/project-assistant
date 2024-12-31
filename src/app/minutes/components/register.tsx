@@ -2,17 +2,10 @@ import React, { useState } from 'react';
 
 export default function Register({ selectedProject, selectedMeeting }) {
   const [uploadType, setUploadType] = useState<'file' | 'transcript' | 'minutes'>('transcript');
-  const [file, setFile] = useState<File | null>(null);
   const [transcript, setTranscript] = useState<string>('');
   const [minutes, setMinutes] = useState<string>('');
   const [meetingDate, setMeetingDate] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setFile(event.target.files[0]);
-    }
-  };
 
   const handleTranscriptChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTranscript(event.target.value);

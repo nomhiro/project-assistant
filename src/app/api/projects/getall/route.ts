@@ -9,9 +9,7 @@ import { NextRequest } from 'next/dist/server/web/spec-extension/request';
 import { NextResponse } from 'next/dist/server/web/spec-extension/response';
 import { getProjects } from '@/util/cosmos/project';
 
-export const GET = async (
-  req: NextRequest,
-) => {
+export const GET = async () => {
   try {
     console.log('🚀プロジェクト取得');
 

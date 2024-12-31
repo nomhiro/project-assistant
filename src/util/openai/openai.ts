@@ -11,20 +11,23 @@ export const getEmbedding = async (input: string): Promise<number[]> => {
   return new Promise(async (resolve, reject) => {
     console.log(" 🚀ベクトル化開始");
 
-    const endpoint = process.env.AZURE_OPENAI_ENDPOINT!;
-    const apiKey = process.env.AZURE_OPENAI_API_KEY!;
-    const deployment = process.env.AZURE_OPENAI_VEC_DEPLOYMENT_NAME!;
-    const apiVersion = "2024-10-21";
-    
-    const scope = "https://cognitiveservices.azure.com/.default";
-    const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
-    
-    const client = new AzureOpenAI({ endpoint, apiKey, deployment, apiVersion });
-    const embeddings = await client.embeddings.create({ input: [input], model: deployment });
+    try {
+      const endpoint = process.env.AZURE_OPENAI_ENDPOINT!;
+      const apiKey = process.env.AZURE_OPENAI_API_KEY!;
+      const deployment = process.env.AZURE_OPENAI_VEC_DEPLOYMENT_NAME!;
+      const apiVersion = "2024-10-21";
+      
+      const scope = "https://cognitiveservices.azure.com/.default";
+      const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
+      
+      const client = new AzureOpenAI({ endpoint, apiKey, deployment, apiVersion });
+      const embeddings = await client.embeddings.create({ input: [input], model: deployment });
 
-    // console.log("   embeddings:", embeddings.data[0].embedding);
-
-    resolve(embeddings.data[0].embedding);
+      resolve(embeddings.data[0].embedding);
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
   });
 };
 
@@ -36,19 +39,24 @@ export const getChatCompletion = async (messages: ChatMessage[]): Promise<string
   return new Promise(async (resolve, reject) => {
     console.log(" 🚀OpenAI Chat Completion");
 
-    const endpoint = process.env.AZURE_OPENAI_ENDPOINT!;
-    const apiKey = process.env.AZURE_OPENAI_API_KEY!;
-    const deployment = process.env.AZURE_OPENAI_CHAT_DEPLOYMENT_NAME!;
-    const apiVersion = "2024-10-21";
-    
-    const scope = "https://cognitiveservices.azure.com/.default";
-    const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
-    
-    const client = new AzureOpenAI({ endpoint, apiKey, deployment, apiVersion });
-    const completion = await client.chat.completions.create({ messages: messages, model: deployment });
+    try {
+      const endpoint = process.env.AZURE_OPENAI_ENDPOINT!;
+      const apiKey = process.env.AZURE_OPENAI_API_KEY!;
+      const deployment = process.env.AZURE_OPENAI_CHAT_DEPLOYMENT_NAME!;
+      const apiVersion = "2024-10-21";
+      
+      const scope = "https://cognitiveservices.azure.com/.default";
+      const azureADTokenProvider = getBearerTokenProvider(new DefaultAzureCredential(), scope);
+      
+      const client = new AzureOpenAI({ endpoint, apiKey, deployment, apiVersion });
+      const completion = await client.chat.completions.create({ messages: messages, model: deployment });
 
-    console.log("   completion:", completion.choices[0].message);
+      console.log("   completion:", completion.choices[0].message);
 
-    resolve(completion.choices[0].message);
+      resolve(completion.choices[0].message);
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
   });
 };

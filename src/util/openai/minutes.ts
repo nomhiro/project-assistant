@@ -15,12 +15,13 @@ export const getMinutesJson = async (input: string): Promise<Minutes> => {
   return new Promise(async (resolve, reject) => {
     console.log(" 🚀議事録生成開始");
 
-    const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
-    const apiKey = process.env.AZURE_OPENAI_API_KEY!;
-    const deployment = process.env.AZURE_OPENAI_DEPLOYMENT_NAME!;
-    const apiVersion = "2024-10-21";
+    try {
+      const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
+      const apiKey = process.env.AZURE_OPENAI_API_KEY!;
+      const deployment = process.env.AZURE_OPENAI_DEPLOYMENT_NAME!;
+      const apiVersion = "2024-10-21";
 
-    const systemMessage = `整理された会議の議事録を作成し、会議出席者でない人でも理解しやすい形にします。会議の各議題や内容に基づいてセクションを分割し、各セクションをMarkdown形式で記述してください。その後、各セクションをJSONオブジェクトとしてまとめます。
+      const systemMessage = `整理された会議の議事録を作成し、会議出席者でない人でも理解しやすい形にします。会議の各議題や内容に基づいてセクションを分割し、各セクションをMarkdown形式で記述してください。その後、各セクションをJSONオブジェクトとしてまとめます。
 
 # 出力の要件
 1. **会議内容をセクション単位に整理**
@@ -75,52 +76,51 @@ export const getMinutesJson = async (input: string): Promise<Minutes> => {
 - 出席者やアジェンダ、決定事項などがあれば必ず記録に含める。
 - JSONフォーマットが常に有効であるように注意してください。`
 
-    const url = `${endpoint}openai/deployments/${deployment}/chat/completions?api-version=${apiVersion}`;
-    console.log("    url:", url);
+      const url = `${endpoint}openai/deployments/${deployment}/chat/completions?api-version=${apiVersion}`;
+      console.log("    url:", url);
 
-    const headers = {
-      "api-key": apiKey,
-      "Content-Type": "application/json"
-    };
+      const headers = {
+        "api-key": apiKey,
+        "Content-Type": "application/json"
+      };
 
-    const body = {
-      messages: [
-        { role: "system", content: systemMessage },
-        { role: "user", content: input }
-      ],
-      temperature: 0.0,
-      top_p: 0.0,
-      max_tokens: 16384,
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "Minutes",
-          strict: true,
-          schema: {
-            type: "object",
-            properties: {
-              date: { type: "string" },
-              minutes: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    section_title: { type: "string" },
-                    minutes_section: { type: "string" }
-                  },
-                  required: ["section_title", "minutes_section"],
-                  additionalProperties: false
+      const body = {
+        messages: [
+          { role: "system", content: systemMessage },
+          { role: "user", content: input }
+        ],
+        temperature: 0.0,
+        top_p: 0.0,
+        max_tokens: 16384,
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: "Minutes",
+            strict: true,
+            schema: {
+              type: "object",
+              properties: {
+                date: { type: "string" },
+                minutes: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      section_title: { type: "string" },
+                      minutes_section: { type: "string" }
+                    },
+                    required: ["section_title", "minutes_section"],
+                    additionalProperties: false
+                  }
                 }
-              }
-            },
-            required: ["date", "minutes"],
-            additionalProperties: false
+              },
+              required: ["date", "minutes"],
+              additionalProperties: false
+            }
           }
         }
-      }
-    };
+      };
 
-    try {
       const response = await fetch(url, {
         method: "POST",
         headers: headers,

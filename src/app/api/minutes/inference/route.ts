@@ -52,7 +52,7 @@ export const POST = async (
     const systemMessage = `あなたはプロジェクトマネジメントをサポートする役割です。過去の議事録の内容をもとに、ユーザメッセージに対する回答を生成してください。議事録が与えられていない、または回答するための情報が不足している場合は、理由とともに答えられない旨の回答をしてください。${minutesText}`;
     console.log('   systemMessage:', systemMessage);
 
-    let messages: ChatMessage[] = [
+    const messages: ChatMessage[] = [
       { role: 'system', content: systemMessage }
     ];
     messages.push({ role: 'user', content: input });   //TODO: 本来はチャット履歴を渡したい
