@@ -39,7 +39,7 @@ export default function Chat({
       // const response = `# a\n\n## b\n- 1\n- **2**`;
       setMessages((prevMessages) => [
         ...prevMessages,
-        { role: "assistant", content: data.response.content },
+        { role: "assistant", content: data.response },
       ]);
 
       setInput("");

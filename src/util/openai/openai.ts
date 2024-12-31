@@ -50,9 +50,15 @@ export const getChatCompletion = async (messages: ChatMessage[]): Promise<string
       //   messages: chatMessages, 
       //   model: deployment
       // });
+      const systemMessage = messages.find(message => message.role === 'system');
+      const userMessage = messages.find(message => message.role === 'user');
+      if (!systemMessage || !userMessage) {
+        throw new Error("System or user message is missing");
+      }
       const completion = await client.chat.completions.create({
         messages: [
-          { role : "user", content: messages[0].content },
+          { role: "system", content: systemMessage.content },
+          { role : "user", content: userMessage.content }
         ],
         model: deployment,
         stream: false
