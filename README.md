@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# プロジェクトアシスタント
 
-## Getting Started
+Next.js 15とTypeScriptを使用したWebアプリケーションです。Azure OpenAIとAzure Cosmosデータベースを活用した議事録管理とアシスタント機能を提供します。
 
-First, run the development server:
+## 機能
+
+- **議事録管理**: 会議の議事録作成、管理、検索機能
+- **AIアシスタント**: Azure OpenAIを使用したチャット機能
+- **プロジェクト管理**: プロジェクト単位での議事録管理
+
+## 技術スタック
+
+- **フロントエンド**: Next.js 15, React 19, TypeScript
+- **スタイリング**: Tailwind CSS
+- **データベース**: Azure Cosmos DB
+- **AI**: Azure OpenAI, OpenAI
+- **認証**: Azure Identity
+- **ストレージ**: Azure Blob Storage
+
+## セットアップ
+
+### 前提条件
+
+- Node.js 20.x
+- npm
+
+### インストール
+
+```bash
+npm install
+```
+
+### 開発サーバーの起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 でアプリケーションにアクセスできます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### ビルド
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+### 本番環境での起動
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## プロジェクト構造
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── api/            # API ルート
+│   ├── minutes/        # 議事録機能
+│   └── layout.tsx      # レイアウトコンポーネント
+├── components/         # 再利用可能なコンポーネント
+├── context/           # React Context
+├── models/            # データモデル
+├── types/             # TypeScript型定義
+└── util/              # ユーティリティ関数
+    ├── cosmos/        # Azure Cosmos DB操作
+    └── openai/        # OpenAI操作
+```
 
-## Deploy on Vercel
+## API エンドポイント
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/api/meetings/getbyproject` - プロジェクト別会議取得
+- `/api/minutes/inference` - 議事録推論
+- `/api/minutes/regist/transcript` - 議事録登録
+- `/api/projects/getall` - 全プロジェクト取得
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 開発
+
+### リント
+
+```bash
+npm run lint
+```
+
+### 環境変数
+
+必要な環境変数をセットアップしてください（Azure関連の設定が必要です）。
+
+## ライセンス
+
+プライベートプロジェクト
